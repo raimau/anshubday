@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Ansh, With Love</title>
+  <!-- Favicon -->
+    <link rel="icon" href="favicon.png" type="image/png" sizes="32x32">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #ffe6f0, #ffd6e0);
+            overflow-x: hidden;
+        }
+
+        /* Main Title */
+        .title {
+            text-align: center;
+            font-size: 4rem;
+            font-weight: bold;
+            color: #ff4d88;
+            position: relative;
+            margin-top: 50px;
+            text-transform: uppercase;
+            animation: popIn 1s ease-in-out;
+        }
+
+        .title span {
+            display: inline-block;
+            position: relative;
+        }
+
+      /* Replace the A with Ansh's photo */
+.title .custom-a {
+    background: url('anshu.png') center/cover no-repeat;
+    width: 16rem; /* Enlarge the width to 4rem */
+    height: 16rem; /* Make it proportionally taller */
+    border-radius: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    transition: transform 0.3s ease-in-out; /* Smooth animation on hover */
+}
+
+.title .custom-a:hover {
+    transform: scale(1.2); /* Grows to 120% on hover */
+}
+
+
+       /* Floating Elements */
+.floating {
+    position: absolute;
+    animation: float 5s infinite;
+    z-index: 9999; /* Ensure they appear above other elements */
+}
+
+/* Floating Cake */
+.cake {
+    top: 5%; /* Position it higher */
+    left: 10%; /* Adjust the left position */
+    width: 200px; /* Make the cake larger */
+    height: 200px; /* Make the cake larger */
+    animation: float 6s ease-in-out infinite; /* Make the floating slower and smoother */
+}
+
+/* Floating Balloon */
+.ballon {
+    top: 30%; /* Adjust the vertical position */
+    right: 5%; /* Adjust the right position */
+    width: 150px; /* Make the balloon larger */
+    height: 150px; /* Make the balloon larger */
+    animation: float 6s ease-in-out infinite; /* Make the floating slower and smoother */
+}
+
+/* Floating Animation */
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px); /* Adjust the movement height */
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+        /* Music Button */
+        .music {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff4d88;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Title Section -->
+    <h1 class="title">
+        HAPPY <span class="custom-a"></span>NSH DAY
+    </h1>
+
+    <!-- Floating Decorations -->
+    <img src="cake.png" class="floating cake" alt="Floating Cake">
+    <img src="ballon.png" class="floating ballon" alt="Floating Ballon">
+
+   <!-- Music Player -->
+<audio id="bdaysong" loop>
+    <source src="bdaysong.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+<button class="music" onclick="toggleMusic()">Play Music</button>
+
+<script>
+    // Music Toggle Function
+    const music = document.getElementById('bdaysong');
+    let isPlaying = false;
+
+    function toggleMusic() {
+        if (isPlaying) {
+            music.pause();
+            isPlaying = false;
+            document.querySelector('.music').innerText = "Play Music"; // Change button text to "Play Music"
+        } else {
+            music.play().catch(error => {
+                console.error("Playback prevented:", error);
+            });
+            isPlaying = true;
+            document.querySelector('.music').innerText = "Pause Music"; // Change button text to "Pause Music"
+        }}
+</script>
+
+<div class="carousel-container">
+    <div class="carousel">
+        <div class="carousel-item">
+            <img src="anshu1.jpg" alt="Ansh1">
+            <div class="caption">An absolute sweetheart frolicking in Monty</div>
+        </div>
+        <div class="carousel-item">
+            <img src="anshu2.jpg" alt="Ansh2">
+            <div class="caption">Chotu babie Ansh: circa anshu's toddlerhood</div>
+        </div>
+        <div class="carousel-item">
+            <img src="anshu3.jpg" alt="Ansh3">
+            <div class="caption">Rasmalai cheeks-by the courtesy of Raimu</div>
+        </div>
+        <div class="carousel-item">
+            <img src="anshu4.png" alt="Ansh4">
+            <div class="caption">The best teef</div>
+        </div>
+        <div class="carousel-item">
+            <img src="anshu5.jpg" alt="Ansh5">
+            <div class="caption">Iconic hizru boy at hamleys</div>
+        </div>
+        <div class="carousel-item">
+            <img src="anshu6.jpg" alt="Ansh6">
+            <div class="caption">That's.. a hairtie...in his mouth</div>
+        </div>
+    </div>
+    <span class="prev">&#10094;</span>
+    <span class="next">&#10095;</span>
+</div>
+
+<style>
+    /* Carousel Container */
+    .carousel-container {
+        width: 100%;
+        max-width: 1000px; /* Limit the max width */
+        margin: 0 auto; /* Center the carousel */
+        padding: 50px 0; /* Add some space above and below */
+        position: relative;
+        overflow: hidden;
+        background-color: black; /* Black background */
+        border-radius: 10px; /* Optional: add rounded corners */
+    }
+
+    .carousel {
+        display: flex;
+        transition: transform 1s ease; /* Smooth transition when sliding */
+    }
+
+    .carousel-item {
+        min-width: 100%; /* Each image takes up 100% width */
+        box-sizing: border-box;
+        position: relative; /* To position captions correctly */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .carousel-item img {
+        max-width: 100%; /* Ensure images are responsive */
+        max-height: 100%; /* Ensure images are responsive */
+        object-fit: contain; /* Keep the images' original aspect ratio */
+        display: block; /* Remove extra space below images */
+        margin: 0 auto; /* Center images horizontally */
+    }
+
+    .caption {
+        position: absolute;
+        bottom: 10px; /* Position the caption at the bottom of the image */
+        left: 0;
+        width: 100%; /* Ensure caption spans the whole width of the image */
+        font-size: 24px;
+        font-family: 'Playfair Display', serif;
+        font-style: italic; /* Italicized font */
+        color: white; /* White text for contrast */
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+        padding: 10px;
+        text-align: center; /* Center the caption text */
+    }
+
+    /* Add some styles for the navigation buttons */
+    .prev, .next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        padding: 10px;
+        font-size: 24px;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    .prev {
+        left: 10px;
+    }
+
+    .next {
+        right: 10px;
+    }
+</style>
+
+<script>
+    // Get carousel and items
+    const carousel = document.querySelector('.carousel');
+    const prevButton = document.querySelector('.prev');
+    const nextButton = document.querySelector('.next');
+
+    let currentIndex = 0;
+    const items = document.querySelectorAll('.carousel-item');
+
+    // Show the next image
+    nextButton.addEventListener('click', () => {
+        if (currentIndex < items.length - 1) {
+            currentIndex++;
+        } else {
+            currentIndex = 0; // Loop back to first image
+        }
+        updateCarousel();
+    });
+
+    // Show the previous image
+    prevButton.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+        } else {
+            currentIndex = items.length - 1; // Loop back to last image
+        }
+        updateCarousel();
+    });
+
+    function updateCarousel() {
+        const offset = -currentIndex * 100; // Calculate the offset to slide
+        carousel.style.transform = `translateX(${offset}%)`;
+    }
+</script>
+<!-- Breaking News Section with Sirens -->
+<div class="news-flash">
+    <div class="tv-box">
+        <div class="news-content">
+            <p class="breaking-news">BREAKING: This just in! Ansh Yadav, aged 20 as of 26/01/2025 (midnight EDT), is officially entering BIG BOY ERA!!! The world is breaking into celebration!! TOUR THROUGH THIS SITE TO ENGAGE IN THE FESTIVITIES OF ANSH DAY!</p>
+            <p class="source">Source: Raimu News Daily</p>
+        </div>
+        <div class="tv-reporter">
+            <img src="kuromi.png" alt="Reporter Kuromi" class="reporter-image">
+        </div>
+        <div class="sirens">
+            <div class="flashing-siren"></div>
+            <div class="flashing-siren"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* TV Style Box */
+    .tv-box {
+        width: 90%;
+        max-width: 1024px; /* Match carousel size */
+        background-color: #333;
+        border: 5px solid #f1c40f;
+        border-radius: 15px;
+        padding: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        margin: 50px auto; /* Added margin to create space between carousel and news box */
+        overflow: hidden;
+    }
+
+    /* News Content */
+    .news-content {
+        color: white;
+        font-family: 'Arial', sans-serif;
+        font-size: 1.3rem;
+        font-weight: bold;
+        max-width: 60%;
+    }
+
+    .breaking-news {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #f1c40f;
+        animation: boom 1s ease-in-out; /* Added animation */
+    }
+
+    .news-headline {
+        margin-top: 10px;
+        font-size: 1.2rem;
+    }
+
+    .source {
+        margin-top: 15px;
+        font-style: italic;
+        font-size: 1rem;
+    }
+
+    /* Reporter Image */
+    .tv-reporter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .reporter-image {
+        width: 50%;
+        height: auto;
+    }
+
+    /* Siren Flashing Effect */
+    .sirens {
+        position: relative;
+    }
+
+    .flashing-siren {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background-color: red;
+        border-radius: 50%;
+        animation: flash 0.5s infinite alternate;
+        top: 0;
+    }
+
+    .flashing-siren:nth-child(2) {
+        animation-delay: 0.25s;
+        left: 50px;
+    }
+
+    /* Flashing animation */
+    @keyframes flash {
+        0% {
+            background-color: red;
+        }
+        100% {
+            background-color: yellow;
+        }
+    }
+
+    /* "Boom" Animation for the Breaking News Text */
+    @keyframes boom {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.2);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    /* Responsiveness for smaller screens */
+    @media (max-width: 600px) {
+        .tv-box {
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .news-content {
+            max-width: 100%;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .reporter-image {
+            width: 70%;
+        }
+
+        .flashing-siren {
+            width: 30px;
+            height: 30px;
+        }
+
+        .flashing-siren:nth-child(2) {
+            left: 40px;
+        }
+    }
+</style>
+<!-- Navigation Menu -->
+<div class="navbar">
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+       <li><a href="atelier.html">L'atelier d'Ansh</a></li> <!-- Link to the new page -->
+               <li><a href="horoscope.html">What's in Da Stars</a></li>
+        <li><a href="music.html">La Musique d'Ansh</a></li>
+        <li><a href="game.html">Game</a></li>
+           </ul>
+</div>
+
+<!-- CSS for Navigation -->
+<style>
+    /* Navbar styling */
+    .navbar {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 15px 0;
+        z-index: 9999;
+    }
+
+    .nav-links {
+        display: flex;
+        justify-content: center;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-links li {
+        margin: 0 20px;
+    }
+
+    .nav-links li a {
+        font-family: 'Playfair Display', serif;
+        font-size: 24px;
+        color: white;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: color 0.3s ease;
+    }
+
+    .nav-links li a:hover {
+        color: #f39c12;
+        font-weight: bold;
+    }
+</style>
+
+</script>
+
+
+</body>
+<!-- Footer for "All Rights Reserved" -->
+<footer>
+    <p>&#169; 2025, Raima Siddiqui. All Rights Reserved.</p>
+</footer>
+
+<style>
+    /* Footer Styles */
+    footer {
+        text-align: center;
+        padding: 10px;
+        background-color: #333;
+        color: white;
+        font-size: 14px;
+        margin-top: 20px; /* Adds a little space between the content and footer */
+    }
+
+    /* Make sure the footer stays at the bottom after scrolling */
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    main {
+        flex-grow: 1; /* Ensures content takes up the full height of the page */
+    }
+</style>
+
+
+</html>

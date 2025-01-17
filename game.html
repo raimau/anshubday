@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milkshake Odyssey</title>
+    <link rel="icon" href="anshi.png" type="image/png">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Baskerville Old Face', serif;
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: gold;
+            font-size: 60px;
+            margin-top: 20px;
+        }
+
+        .avatar-img {
+            display: block;
+            margin: 0 auto;
+            width: 200px;
+            height: auto;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        .stats div {
+            margin: 0 20px;
+        }
+
+        .game-container {
+            width: 200%;
+            height: 500px;
+            background-image: url('bg.jpg');
+            background-size: cover;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.1s linear; /* Smooth scrolling effect */
+        }
+
+        .avatar {
+            position: absolute;
+            bottom: 20px;
+            left: 50px;
+            width: 50px;
+            height: 70px;
+            background-image: url('anshi.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .milkshake {
+            position: absolute;
+            width: 60px; /* Increased size */
+            height: 60px; /* Increased size */
+            background-image: url('milk.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .monster {
+            position: absolute;
+            width: 80px; /* Increased size */
+            height: 30px; /* Increased size */
+            background-image: url('mons.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .start-btn, .restart-btn {
+            display: block;
+            margin: 30px auto;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 16px;
+        }
+
+        .nav {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: gold;
+            font-size: 18px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Milkshake Odyssey</h1>
+    <img src="anshi.png" alt="Avatar" class="avatar-img">
+    
+    <div class="stats">
+        <div>Bravery: MAX</div>
+        <div>Strength: MAX</div>
+        <div>Agility: MAX</div>
+        <div>Humour: MAX</div>
+        <div>Intelligence: MAX</div>
+    </div>
+
+    <p style="text-align:center; font-size: 22px; color: white;">Follow Ser Anshelot Yadavon on his journey to Errendille where he collects his beloved milkshakes from the terrifying Hollow Knights.</p>
+    
+    <div class="game-container" id="game-container">
+        <div class="avatar" id="avatar"></div>
+        <div class="milkshake" id="milkshake1" style="bottom: 20px; left: 500px;"></div>
+        <div class="milkshake" id="milkshake2" style="bottom: 20px; left: 800px;"></div>
+        <div class="monster" id="monster1" style="bottom: 20px; left: 650px;"></div>
+        <div class="monster" id="monster2" style="bottom: 20px; left: 1000px;"></div>
+    </div>
+
+    <button class="start-btn" id="start-btn">Start the Game!</button>
+    <button class="restart-btn" id="restart-btn" style="display: none;">Restart Game</button>
+
+    <div class="footer">
+        <p>Developed by Dame Raimanasia Siddiquincy for the love of her life, Ser Anshelot Yadavon</p>
+    </div>
+
+    <div class="nav">
+        <a href="index.html">Home</a>
+    </div>
+
+    <script>
+        let avatar = document.getElementById('avatar');
+        let milkshake1 = document.getElementById('milkshake1');
+        let milkshake2 = document.getElementById('milkshake2');
+        let monster1 = document.getElementById('monster1');
+        let monster2 = document.getElementById('monster2');
+        let startBtn = document.getElementById('start-btn');
+        let restartBtn = document.getElementById('restart-btn');
+        let gameContainer = document.getElementById('game-container');
+        let score = 0;
+
+        let avatarX = 50;
+        let avatarY = 20;
+        let isJumping = false;
+        let backgroundMusic = new Audio('bgm.mp3');
+        let gameInterval;
+        let gravity = 0.5; // Adjusted gravity
+        let jumpStrength = 15; // Upward velocity for jump
+        let velocityY = 0;
+        let jumpHeight = 0;
+        let avatarSpeed = 3; // Horizontal speed of avatar
+        let scrollSpeed = 2; // Speed at which the scene scrolls
+
+        startBtn.addEventListener('click', startGame);
+        restartBtn.addEventListener('click', restartGame);
+
+        function startGame() {
+            startBtn.style.display = 'none';
+            restartBtn.style.display = 'none';
+            backgroundMusic.loop = true;
+            backgroundMusic.play(); // Start the background music
+            gameInterval = setInterval(moveGame, 20); // Slower movement
+
+            document.addEventListener('keydown', function(event) {
+                if (event.code === 'Space' && !isJumping) {
+                    isJumping = true;
+                    velocityY = jumpStrength; // Initial velocity for upward jump
+                }
+            });
+
+            function moveGame() {
+                avatarX += avatarSpeed; // Constant movement of the avatar horizontally
+                avatar.style.left = avatarX + 'px';
+
+                // Scroll the game container
+                gameContainer.style.transform = `translateX(-${avatarX * scrollSpeed / 10}px)`;
+
+                // Handle the jumping physics
+                if (isJumping) {
+                    avatarY += velocityY; // Update Y position based on velocity
+                    velocityY -= gravity; // Apply gravity to velocity
+
+                    if (avatarY <= 20) { // If avatar reaches the ground
+                        avatarY = 20;
+                        isJumping = false;
+                    }
+                }
+
+                avatar.style.bottom = avatarY + 'px';
+
+                checkCollisions();
+                resetObstacles();
+            }
+
+            function checkCollisions() {
+                // Check if avatar collects milkshakes
+                if (checkCollision(avatar, milkshake1)) {
+                    milkshake1.style.display = 'none';
+                    playSound('points.mp3');
+                    score += 10;
+                }
+                if (checkCollision(avatar, milkshake2)) {
+                    milkshake2.style.display = 'none';
+                    playSound('points.mp3');
+                    score += 10;
+                }
+
+                // Check if avatar collides with monsters
+                if (checkCollision(avatar, monster1) || checkCollision(avatar, monster2)) {
+                    playSound('end.mp3');
+                    clearInterval(gameInterval);
+                    backgroundMusic.pause();
+                    restartBtn.style.display = 'block';
+                    alert('Game Over! Your score: ' + score);
+                }
+            }
+
+            function resetObstacles() {
+                // If the avatar moves out of the screen, reset obstacles to the right side
+                if (avatarX > gameContainer.offsetWidth) {
+                    avatarX = 50;
+                    milkshake1.style.left = '500px';
+                    milkshake2.style.left = '800px';
+                    monster1.style.left = '650px';
+                    monster2.style.left = '1000px';
+                }
+            }
+
+            function checkCollision(a, b) {
+                let aRect = a.getBoundingClientRect();
+                let bRect = b.getBoundingClientRect();
+                return !(aRect.right < bRect.left || aRect.left > bRect.right || aRect.bottom < bRect.top || aRect.top > bRect.bottom);
+            }
+
+            function playSound(src) {
+                let audio = new Audio(src);
+                audio.play();
+            }
+        }
+
+        function restartGame() {
+            avatarX = 50;
+            avatarY = 20;
+            score = 0;
+            milkshake1.style.display = 'block';
+            milkshake2.style.display = 'block';
+            monster1.style.left = '650px';
+            monster2.style.left = '1000px';
+            startGame();
+        }
+    </script>
+</body>
+</html>

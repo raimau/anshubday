@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's in the Stars</title>
+    <style>
+        /* General Styling */
+        body {
+            margin: 0;
+            font-family: "Georgia", serif;
+            background-color: #5E081D;
+            color: #C0C0C0;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #FFF;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .navigation {
+            background-color: #000;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navigation a {
+            text-decoration: none;
+            color: #FFF;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .section {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .image {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #C0C0C0;
+            margin: 10px auto;
+        }
+
+        .astrology-form {
+            background-color: #000;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 500px;
+            box-shadow: 0 0 10px 2px #C0C0C0;
+        }
+
+        .astrology-form input,
+        .astrology-form button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+
+        .astrology-form button {
+            background-color: #5E081D;
+            color: #FFF;
+            cursor: pointer;
+        }
+
+        .reading {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px 2px #FFF;
+            margin: 20px auto;
+            max-width: 700px;
+        }
+
+        .hello-kitty {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .hello-kitty img {
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="navigation">
+        <a href="index.html">Home</a>
+        <a href="#moon-section">Moon</a>
+        <a href="#nasa-section">NASA Pic</a>
+        <a href="#astrology-form">Get Reading</a>
+    </div>
+
+    <div class="container">
+        <!-- Title -->
+        <h1>What's in the Stars</h1>
+
+        <!-- Moon Section -->
+        <div id="moon-section" class="section">
+            <h2>The Moon</h2>
+            <img src="moon.png" alt="Moon on January 26, 2005" class="image">
+            <p>The moon as seen on January 26, 2005, when the sun was born.</p>
+        </div>
+
+        <!-- NASA Picture Section -->
+        <div id="nasa-section" class="section">
+            <h2>NASA Picture of the Day</h2>
+            <img src="nasa.gif" alt="Delta IV Rocket Launch" class="image">
+            <p>When the largest rocket, Delta IV, of the USA was launched.</p>
+        </div>
+
+        <!-- Astrology Form Section -->
+        <div id="astrology-form" class="section">
+            <h2>Find Out What's in the Stars for You</h2>
+            <form class="astrology-form" onsubmit="generateReading(event)">
+                <input type="text" id="dob" placeholder="Enter Your Date of Birth (e.g., 26/01/2005)" required>
+                <input type="text" id="time" placeholder="Enter Your Time of Birth (e.g., 10:30 AM)" required>
+                <input type="text" id="place" placeholder="Enter Your Place of Birth" required>
+                <button type="submit">Reveal My Stars</button>
+            </form>
+        </div>
+
+        <!-- Hello Kitty Image -->
+        <div class="hello-kitty">
+            <img src="hk.jpg" alt="Astrologer Hello Kitty">
+        </div>
+
+        <!-- Reading Output -->
+        <div id="reading-output" class="reading" style="display: none;"></div>
+    </div>
+
+    <script>
+        // Horoscope Generator
+        function generateReading(event) {
+            event.preventDefault();
+            const dob = document.getElementById("dob").value;
+            const time = document.getElementById("time").value;
+            const place = document.getElementById("place").value;
+
+            const description = `
+                <h2>Your Horoscope Reading</h2>
+                <p><strong>Personal Description:</strong> You are hardworking, disciplined, and a true admirer of beauty. You possess an incredible blend of modesty and charm, with an unrelenting desire for self-improvement. Your calming presence and kind nature make you a pillar of strength for everyone.</p>
+                <p><strong>Career Prospects:</strong> Your stars show a future of immense success, driven by your dedication and intellect. Stay determined and watch opportunities unfold!</p>
+                <p><strong>Romantic Affairs:</strong> You may have already met the person meant for you. This person cherishes you deeply, and together, you’ll create a lasting story of love and partnership.</p>
+                <p><strong>Yearly Predictions:</strong></p>
+                <ul>
+                    <li>January: Joyful beginnings await you.</li>
+                    <li>February: Fervent love fills your life.</li>
+                    <li>March: Magical opportunities arise.</li>
+                    <li>April: Adventures beckon.</li>
+                    <li>May: Remarkable achievements ahead.</li>
+                    <li>June: Cherished moments abound.</li>
+                    <li>July: Personal and professional happiness.</li>
+                    <li>August: Affection and harmony reign.</li>
+                    <li>September: Delightful surprises await.</li>
+                    <li>October: Immense joy and success.</li>
+                    <li>November: Nostalgic yet new beginnings.</li>
+                    <li>December: Peace and love envelop you.</li>
+                </ul>
+                <p><em>Your journey is filled with wonders. Embrace it fully!</em></p>
+            `;
+
+            document.getElementById("reading-output").innerHTML = description;
+            document.getElementById("reading-output").style.display = "block";
+        }
+    </script>
+</body>
+</html>
